@@ -1,0 +1,245 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Evaluación de prueba · Robots móviles y colaborativos</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+:root{
+  --bg:#eef1f3; --sheet:#ffffff; --fg:#16212b; --muted:#5a6873; --rule:#cfd6dc; --field:#f7f9fa;
+  --accent:#1d5bb8; --accent-soft:#e3eaf3; --ok:#1f7a4d; --ok-soft:#e1f2e8; --warn:#b4541a; --warn-soft:#fbeadf;
+  --f-disp:"Barlow Condensed","Arial Narrow",sans-serif; --f-body:"IBM Plex Sans",system-ui,sans-serif; --f-mono:"IBM Plex Mono",ui-monospace,monospace;
+}
+@media (prefers-color-scheme:dark){:root{
+  --bg:#0f151b; --sheet:#161e26; --fg:#dfe6ec; --muted:#93a1ad; --rule:#2c3944; --field:#1b252e;
+  --accent:#6aa3ff; --accent-soft:#1c2a3a; --ok:#5fcf95; --ok-soft:#17302a; --warn:#f0965c; --warn-soft:#33221a; color-scheme:dark}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.55 var(--f-body);padding:28px 16px 80px}
+.wrap{max-width:820px;margin:0 auto;display:flex;flex-direction:column;gap:22px}
+header{display:flex;flex-direction:column;gap:8px}
+.eyebrow{font:500 12px var(--f-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+h1{font:700 clamp(30px,6vw,46px)/1.02 var(--f-disp);margin:0;text-wrap:balance}
+h2{font:600 24px/1.15 var(--f-disp);margin:0}
+p{margin:0}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{font:500 12px var(--f-mono);border:1px solid var(--rule);background:var(--sheet);padding:4px 9px;border-radius:3px;color:var(--muted)}
+.card{background:var(--sheet);border:1px solid var(--rule);padding:20px;display:flex;flex-direction:column;gap:14px}
+.card.inst{border-left:4px solid var(--accent)}
+.card ul{margin:0;padding-left:20px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px}
+label.f{display:flex;flex-direction:column;gap:5px;font-size:14px;font-weight:500}
+input[type=text],select{font:16px var(--f-body);color:var(--fg);background:var(--field);border:1px solid var(--rule);border-radius:4px;padding:9px 11px;width:100%}
+input:focus-visible,select:focus-visible,button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.sec-title{display:flex;align-items:baseline;gap:10px;margin-top:6px}
+.sec-title .n{font:500 13px var(--f-mono);color:var(--accent)}
+fieldset.q{border:1px solid var(--rule);background:var(--sheet);margin:0;padding:18px 20px;display:flex;flex-direction:column;gap:10px}
+fieldset.q legend{float:left;width:100%;padding:0;margin-bottom:6px;font-weight:600;font-size:16px;line-height:1.45}
+fieldset.q legend .num{font:600 13px var(--f-mono);color:var(--accent);margin-right:8px}
+fieldset.q.missing{border-color:var(--warn);background:var(--warn-soft)}
+.opt{display:flex;gap:10px;align-items:flex-start;padding:9px 12px;border:1px solid var(--rule);border-radius:5px;cursor:pointer;background:var(--field)}
+.opt:hover{border-color:var(--accent)}
+.opt input{margin-top:4px;accent-color:var(--accent);flex:none}
+.opt:has(input:checked){border-color:var(--accent);background:var(--accent-soft)}
+.opt .l{font:600 13px var(--f-mono);color:var(--muted);flex:none;width:18px;margin-top:2px}
+.bar{position:sticky;top:0;z-index:5;background:var(--sheet);border:1px solid var(--rule);padding:10px 16px;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.bar .t{font:600 18px var(--f-mono)}
+.bar .t.low{color:var(--warn)}
+.bar .p{font-size:14px;color:var(--muted)}
+button{font:600 15px var(--f-body);cursor:pointer;border-radius:5px;border:1px solid var(--accent);background:var(--accent);color:var(--sheet);padding:11px 20px}
+button.sec{background:transparent;color:var(--fg);border-color:var(--rule)}
+button:disabled{opacity:.55;cursor:not-allowed}
+.msg{padding:14px 16px;border-left:4px solid var(--warn);background:var(--warn-soft);display:flex;flex-direction:column;gap:10px}
+.msg.ok{border-left-color:var(--ok);background:var(--ok-soft)}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.hidden{display:none!important}
+footer{font-size:13px;color:var(--muted)}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <div class="eyebrow">Curso de Robótica · Evaluación</div>
+  <h1>Evaluación de prueba · Robots móviles y colaborativos</h1>
+  <div class="chips"><span class="chip">Forma PRUEBA</span><span class="chip">20 preguntas</span><span class="chip">1 punto cada una</span><span class="chip" id="chipTiempo"></span></div>
+</header>
+
+<section class="card inst">
+  <h2>Instrucciones</h2>
+  <ul>
+    <li>Completa tus datos antes de comenzar. No necesitas cuenta ni contraseña.</li>
+    <li>Cada pregunta tiene una sola respuesta correcta.</li>
+    <li>Cuando termines, presiona <b>Terminar evaluación</b>. Se generará un PDF con tus respuestas, que debes enviar a tu profesor.</li>
+    <li>Si se acaba el tiempo, la evaluación se termina automáticamente con lo que hayas respondido.</li><li>Una vez terminada, no podrás cambiar tus respuestas.</li>
+  </ul>
+</section>
+
+<section class="card" id="ident">
+  <h2>Identificación</h2>
+  <div class="grid">
+    <label class="f">Nombre completo<input type="text" id="nombre" autocomplete="name" placeholder="Nombre y apellidos"></label>
+    <label class="f">RUT (opcional)<input type="text" id="rut" placeholder="12.345.678-9"></label>
+    <label class="f">Curso o sección<input type="text" id="curso" placeholder="Ej.: IEA"></label>
+  </div>
+  <div class="row"><button type="button" id="startBtn">Comenzar evaluación</button></div>
+  <div id="identMsg"></div>
+</section>
+
+<div class="bar hidden" id="bar"><span class="t" id="timer">--:--</span><span class="p" id="progress"></span></div>
+
+<form id="quiz" class="hidden" novalidate>
+  <div id="qContainer" style="display:flex;flex-direction:column;gap:14px"></div>
+  <section class="card" style="margin-top:14px">
+    <div class="row"><button type="button" id="sendBtn">Terminar evaluación</button></div>
+    <div id="sendMsg"></div>
+  </section>
+</form>
+
+<section class="card hidden" id="done">
+  <h2>Evaluación terminada</h2>
+  <p id="doneText"></p>
+  <div class="row"><button type="button" id="pdfBtn">Descargar PDF</button></div>
+  <p class="hint" style="font-size:14px;color:var(--muted)">Envía el PDF a tu profesor por el medio que te indique (correo o plataforma del curso). No modifiques el archivo.</p>
+  <div id="pdfMsg"></div>
+</section>
+
+<footer>Curso de Robótica. Al terminar se genera un PDF con tus respuestas.</footer>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script>
+/* ===== CONFIGURACIÓN ===== */
+const FORMA = "PRUEBA";
+const DURACION_MIN = 40;      // 0 = sin límite de tiempo
+const PREGUNTAS = [{"nombre": "Conceptos generales de robótica", "preguntas": [{"t": "¿Qué es un robot colaborativo (cobot)?", "o": {"a": "Un robot diseñado para trabajar de forma segura junto a personas, compartiendo el espacio de trabajo", "b": "Un robot que solo puede funcionar dentro de una jaula de seguridad", "c": "Un robot móvil que transporta carga por una bodega", "d": "Un programa que simula robots en el computador"}}, {"t": "En un brazo robótico, los grados de libertad (GDL) corresponden a:", "o": {"a": "El peso máximo que puede levantar", "b": "La cantidad de movimientos independientes que puede realizar, normalmente uno por articulación", "c": "La distancia máxima que alcanza su herramienta", "d": "La velocidad máxima de sus motores"}}, {"t": "La repetibilidad de un robot indica:", "o": {"a": "Cuántas horas puede trabajar sin detenerse", "b": "Cuántas veces se puede reprogramar", "c": "Su capacidad de volver una y otra vez al mismo punto programado", "d": "La cantidad de robots iguales que se pueden fabricar"}}, {"t": "¿Qué es el TCP (Tool Center Point) de un robot?", "o": {"a": "El protocolo de red que usa para comunicarse", "b": "El punto de referencia ubicado en la herramienta, que el robot posiciona y orienta al moverse", "c": "El centro de la base del robot", "d": "El botón de parada de emergencia"}}, {"t": "¿Cuál es la principal diferencia entre un AGV clásico y un AMR (robot móvil autónomo)?", "o": {"a": "El AGV es más rápido y el AMR solo funciona en exteriores", "b": "El AGV clásico sigue rutas guiadas (cintas, imanes o cables), mientras que el AMR planifica su ruta y esquiva obstáculos con sus sensores", "c": "El AMR no tiene batería", "d": "No hay diferencia, son nombres distintos para lo mismo"}}, {"t": "El efector final de un brazo robótico es:", "o": {"a": "El último programa que se ejecuta", "b": "La articulación de la base", "c": "La herramienta montada en el extremo del brazo, como una pinza o una ventosa", "d": "El cable de alimentación del robot"}}]}, {"nombre": "Robot móvil myAGV (Elephant Robotics)", "preguntas": [{"t": "¿Qué tipo de ruedas usa el myAGV?", "o": {"a": "Orugas, como un tanque", "b": "Dos ruedas motrices y una rueda loca", "c": "Cuatro ruedas mecanum (omnidireccionales), que le permiten desplazarse de lado sin girar", "d": "Patas articuladas"}}, {"t": "¿Qué computador controla el myAGV con el que trabajamos?", "o": {"a": "Una Raspberry Pi 4B", "b": "Un Arduino Uno", "c": "Un PLC", "d": "Un ESP32"}}, {"t": "¿Qué sensor principal usa el myAGV para construir el mapa y navegar?", "o": {"a": "Un sensor de ultrasonido", "b": "Un LiDAR de 360°", "c": "Una termocupla", "d": "Un sensor capacitivo"}}, {"t": "La sigla SLAM significa:", "o": {"a": "Sistema de Láser Automático Móvil", "b": "Localización y mapeo simultáneos", "c": "Software Libre de Automatización y Manufactura", "d": "Sensor Lineal de Alta Medición"}}, {"t": "Verdadero o falso: al guardar un mapa con map_saver se generan dos archivos, uno .pgm con la imagen del mapa y uno .yaml con sus datos.", "o": {"v": "Verdadero", "f": "Falso"}}, {"t": "¿Qué herramienta se usa para ver y controlar el escritorio del myAGV desde otro computador de la misma red?", "o": {"a": "Un cable HDMI conectado al proyector", "b": "VNC Viewer, conectándose a la dirección IP del robot", "c": "El monitor serie del Arduino IDE", "d": "Bluetooth desde el celular"}}]}, {"nombre": "Brazo myCobot 320 (Elephant Robotics)", "preguntas": [{"t": "¿Cuántos grados de libertad (articulaciones) tiene el myCobot 320?", "o": {"a": "4", "b": "5", "c": "6", "d": "7"}}, {"t": "¿Cuál es la carga útil máxima del myCobot 320?", "o": {"a": "250 g", "b": "1 kg", "c": "3 kg", "d": "10 kg"}}, {"t": "¿Cuál es el radio de trabajo aproximado del myCobot 320?", "o": {"a": "280 mm", "b": "350 mm", "c": "500 mm", "d": "1300 mm"}}, {"t": "Verdadero o falso: el myCobot 320 se puede programar en Python.", "o": {"v": "Verdadero", "f": "Falso"}}]}, {"nombre": "Cobot UR3 (Universal Robots)", "preguntas": [{"t": "¿Cuál es la carga útil del UR3?", "o": {"a": "250 g", "b": "3 kg", "c": "10 kg", "d": "30 kg"}}, {"t": "¿Cuál es el alcance aproximado del UR3?", "o": {"a": "280 mm", "b": "500 mm", "c": "850 mm", "d": "1300 mm"}}, {"t": "¿Cómo se programa habitualmente el UR3?", "o": {"a": "Solo con código en lenguaje C", "b": "Con interruptores en la base del robot", "c": "Desde la consola de programación (teach pendant) con la interfaz gráfica PolyScope", "d": "Únicamente por control remoto infrarrojo"}}, {"t": "Verdadero o falso: la última articulación de la muñeca del UR3 puede girar sin límite de vueltas.", "o": {"v": "Verdadero", "f": "Falso"}}]}];
+/* ========================= */
+
+(function(){
+const $=id=>document.getElementById(id);
+const KEY='eval-robotica-'+FORMA+'-resultado';
+let started=false,sent=false,endAt=0,tick=null,startedAt=null;
+
+$('chipTiempo').textContent = DURACION_MIN>0 ? DURACION_MIN+' minutos' : 'Sin límite de tiempo';
+let RES=null;
+try{ const g=localStorage.getItem(KEY); if(g){ RES=JSON.parse(g); setTimeout(()=>showDone(true),0); } }catch(e){}
+
+/* preguntas */
+let n=0,html='';
+PREGUNTAS.forEach((s,si)=>{
+  html+=`<div class="sec-title"><span class="n">${String(si+1).padStart(2,'0')}</span><h2>${s.nombre}</h2></div>`;
+  s.preguntas.forEach(q=>{
+    n++;const id='q'+n;
+    html+=`<fieldset class="q" id="f_${id}"><legend><span class="num">${n}.</span>${q.t}</legend>`+
+      Object.entries(q.o).map(([k,v])=>`<label class="opt"><input type="radio" name="${id}" value="${k}"><span class="l">${k.toUpperCase()}</span><span>${v}</span></label>`).join('')+
+      `</fieldset>`;
+  });
+});
+const TOTAL=n;
+$('qContainer').innerHTML=html;
+$('quiz').addEventListener('change',()=>{updateProgress();document.querySelectorAll('fieldset.q.missing').forEach(f=>{if(f.querySelector('input:checked'))f.classList.remove('missing');});});
+
+function answers(){const a={};for(let i=1;i<=TOTAL;i++){const c=document.querySelector(`input[name="q${i}"]:checked`);a['q'+i]=c?c.value:'';}return a;}
+function updateProgress(){const a=answers();const r=Object.values(a).filter(Boolean).length;$('progress').textContent=`Respondidas ${r} de ${TOTAL}`;}
+
+/* inicio */
+$('startBtn').addEventListener('click',()=>{
+  const nombre=$('nombre').value.trim(),curso=$('curso').value.trim();
+  if(nombre.split(/\s+/).length<2||!curso){$('identMsg').innerHTML='<div class="msg">Escribe tu nombre y al menos un apellido, y tu curso o sección.</div>';return;}
+  $('identMsg').innerHTML='';
+  ['nombre','rut','curso'].forEach(id=>$(id).disabled=true);
+  $('startBtn').classList.add('hidden');
+  $('quiz').classList.remove('hidden');$('bar').classList.remove('hidden');
+  started=true;startedAt=new Date();updateProgress();
+  if(DURACION_MIN>0){endAt=Date.now()+DURACION_MIN*60000;tick=setInterval(updateTimer,1000);updateTimer();}
+  else{$('timer').textContent='Sin límite';}
+  $('qContainer').scrollIntoView({behavior:'smooth',block:'start'});
+});
+function updateTimer(){
+  const left=Math.max(0,endAt-Date.now()),m=Math.floor(left/60000),s=Math.floor(left%60000/1000);
+  $('timer').textContent=`${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
+  $('timer').classList.toggle('low',left<5*60000);
+  if(left<=0){clearInterval(tick);send(true);}
+}
+window.addEventListener('beforeunload',e=>{if(started&&!sent){e.preventDefault();e.returnValue='';}});
+
+/* envío */
+$('sendBtn').addEventListener('click',()=>{
+  const a=answers();const miss=Object.entries(a).filter(([k,v])=>!v).map(([k])=>k);
+  document.querySelectorAll('fieldset.q').forEach(f=>f.classList.remove('missing'));
+  if(miss.length){
+    miss.forEach(k=>$('f_'+k).classList.add('missing'));
+    $('sendMsg').innerHTML=`<div class="msg"><span>Te faltan ${miss.length} pregunta(s) sin responder (marcadas en naranjo). ¿Quieres terminar de todos modos?</span><div class="row"><button type="button" id="sendAnyway">Terminar igual</button><button type="button" class="sec" id="keep">Seguir respondiendo</button></div></div>`;
+    $('sendAnyway').addEventListener('click',()=>send(false));
+    $('keep').addEventListener('click',()=>{$('sendMsg').innerHTML='';$('f_'+miss[0]).scrollIntoView({behavior:'smooth',block:'center'});});
+    return;
+  }
+  $('sendMsg').innerHTML=`<div class="msg"><span>¿Terminar la evaluación? Después no podrás cambiar tus respuestas.</span><div class="row"><button type="button" id="sendYes">Sí, terminar</button><button type="button" class="sec" id="sendNo">Revisar</button></div></div>`;
+  $('sendYes').addEventListener('click',()=>send(false));
+  $('sendNo').addEventListener('click',()=>{$('sendMsg').innerHTML='';});
+});
+
+function h(str){let x=0x811c9dc5;for(let i=0;i<str.length;i++){x^=str.charCodeAt(i);x=Math.imul(x,0x01000193)>>>0;}return x.toString(16);}
+function send(porTiempo){
+  if(sent)return;sent=true;clearInterval(tick);
+  document.querySelectorAll('#quiz input').forEach(i=>i.disabled=true);
+  const a=answers();const det=[];let k=0,resp=0;
+  PREGUNTAS.forEach(s=>s.preguntas.forEach(q=>{k++;const id='q'+k,m=a[id];if(m)resp++;
+    det.push({n:k,sec:s.nombre,t:q.t,m:m,tm:m?q.o[m]:'(sin responder)'});}));
+  const fin=new Date();
+  RES={forma:FORMA,nombre:$('nombre').value.trim(),rut:$('rut').value.trim(),curso:$('curso').value.trim(),
+    inicio:startedAt?startedAt.toISOString():fin.toISOString(),fin:fin.toISOString(),porTiempo:!!porTiempo,
+    respondidas:resp,total:TOTAL,det:det};
+  RES.codigo=h(JSON.stringify([RES.nombre,RES.fin,det.map(d=>d.m||'-').join('')])).toUpperCase();
+  try{localStorage.setItem(KEY,JSON.stringify(RES));}catch(e){}
+  showDone(false);
+}
+function fmt(iso){const d=new Date(iso);const p=n=>String(n).padStart(2,'0');return `${p(d.getDate())}-${p(d.getMonth()+1)}-${d.getFullYear()} ${p(d.getHours())}:${p(d.getMinutes())}`;}
+function showDone(prev){
+  ['ident','quiz','bar'].forEach(id=>$(id).classList.add('hidden'));
+  document.querySelector('.inst').classList.add('hidden');
+  $('done').classList.remove('hidden');sent=true;
+  $('doneText').innerHTML=(prev?'Esta evaluación ya fue terminada en este navegador. ':'')+
+    `<b>${RES.nombre}</b> · Respondiste <b>${RES.respondidas} de ${RES.total}</b> preguntas. Descarga el PDF con tus respuestas y envíalo a tu profesor.`;
+  $('done').scrollIntoView({behavior:'smooth'});
+}
+const T=s=>String(s??'').normalize('NFC').replace(/[−–—]/g,'-').replace(/[“”]/g,'"').replace(/[‘’]/g,"'").replace(/…/g,'...').replace(/[^\x00-\xFF]/g,'?');
+$('pdfBtn').addEventListener('click',()=>{
+  if(!window.jspdf){$('pdfMsg').innerHTML='<div class="msg">No se pudo cargar el generador de PDF. Revisa tu conexión a internet y recarga la página: tu resultado quedó guardado.</div>';return;}
+  const {jsPDF}=window.jspdf;const doc=new jsPDF({unit:'mm',format:'a4'});
+  const W=210,H=297,M=16,CW=W-2*M;let y=M;
+  const ensure=hh=>{if(y+hh>H-M-8){doc.addPage();y=M;}};
+  doc.setFont('helvetica','normal');doc.setFontSize(9.5);doc.setTextColor(90,104,115);doc.text('CURSO DE ROBÓTICA · EVALUACIÓN · FORMA '+T(RES.forma),M,y+4);y+=9;
+  doc.setFont('helvetica','bold');doc.setFontSize(17);doc.setTextColor(22,33,43);doc.splitTextToSize(T(document.title),CW).forEach(l=>{doc.text(l,M,y+6);y+=8;});y+=3;
+  const dato=(k,v)=>{doc.setFont('helvetica','bold');doc.setFontSize(10.5);doc.text(T(k),M,y+4);doc.setFont('helvetica','normal');doc.text(T(v||'-'),M+38,y+4);y+=6;};
+  dato('Nombre',RES.nombre);dato('RUT',RES.rut);dato('Curso',RES.curso);
+  const dur=Math.max(0,Math.round((new Date(RES.fin)-new Date(RES.inicio))/60000));
+  dato('Inicio',fmt(RES.inicio));dato('Término',fmt(RES.fin)+'  ('+dur+' min'+(RES.porTiempo?', terminada al acabarse el tiempo':'')+')');
+  dato('Respondidas',RES.respondidas+' de '+RES.total);
+  y+=3;doc.setDrawColor(150,160,170);doc.setLineWidth(0.4);doc.rect(M,y,CW,14);
+  doc.setFont('helvetica','bold');doc.setFontSize(11);doc.setTextColor(22,33,43);
+  doc.text('Puntaje: ______ / '+RES.total,M+4,y+9);doc.text('Nota: ______',M+CW/2,y+9);
+  doc.setFont('helvetica','normal');doc.setFontSize(8);doc.setTextColor(90,104,115);doc.text('Uso del profesor',W-M-3,y+4,{align:'right'});
+  doc.setLineWidth(0.2);y+=20;doc.setTextColor(22,33,43);
+  doc.setFont('helvetica','bold');doc.setFontSize(11);doc.text('Respuestas del alumno',M,y+4);y+=7;
+  const wN=9,wQ=92,wR=CW-wN-wQ;
+  const row=(c,head)=>{doc.setFont('helvetica',head?'bold':'normal');doc.setFontSize(8.8);
+    const w=[doc.splitTextToSize(T(c[0]),wN-2),doc.splitTextToSize(T(c[1]),wQ-3),doc.splitTextToSize(T(c[2]),wR-3)];
+    const hh=Math.max(...w.map(x=>x.length))*3.9+3;ensure(hh);
+    if(head){doc.setFillColor(227,234,243);doc.rect(M,y,CW,hh,'F');}
+    let x=M;[wN,wQ,wR].forEach((ww,i)=>{doc.text(w[i],x+1.5,y+4.2);x+=ww;});
+    doc.setDrawColor(207,214,220);doc.line(M,y+hh,W-M,y+hh);y+=hh;};
+  let cur='';
+  row(['N°','Pregunta','Respuesta marcada'],true);
+  RES.det.forEach(d=>{if(d.sec!==cur){cur=d.sec;ensure(9);doc.setFont('helvetica','bold');doc.setFontSize(9.5);doc.setTextColor(29,91,184);doc.text(T(cur),M+1.5,y+5);doc.setTextColor(22,33,43);y+=7;}
+    row([String(d.n),d.t,(d.m?d.m.toUpperCase()+') ':'')+d.tm],false);});
+  const n=doc.getNumberOfPages();for(let p=1;p<=n;p++){doc.setPage(p);doc.setFont('helvetica','normal');doc.setFontSize(8);doc.setTextColor(90,104,115);
+    doc.text(T(`${RES.nombre} · Forma ${RES.forma} · Código de control ${RES.codigo}`),M,H-8);doc.text(`${p} / ${n}`,W-M,H-8,{align:'right'});}
+  const name='Evaluacion_Robotica_'+RES.forma+'_'+RES.nombre.normalize('NFD').replace(/[̀-ͯ]/g,'').replace(/[^A-Za-z0-9]+/g,'_').replace(/^_|_$/g,'')+'.pdf';
+  doc.save(name);
+  $('pdfMsg').innerHTML='<div class="msg ok">PDF descargado. Revisa tu carpeta de descargas y envíaselo a tu profesor.</div>';
+});
+})();
+</script>
+</body>
+</html>
